@@ -9,10 +9,31 @@ def search(number, NbZero):
         Rhash = (sha512(str(number).encode()).hexdigest())
         number += 1
     fin = datetime.timestamp(datetime.now())
-    print("durée de recherche :", round(fin-debut,2) ,"seconde(s) \nHash trouvé :", Rhash, "après", number ,"occurences")
+    print("durée de recherche :", translateSecondToHourMinuteSeconde(round(fin-debut,2)) ,"\nHash trouvé :", Rhash, "après", number ,"occurences")
+
+def translateSecondToHourMinuteSeconde(s):
+    day = s // (24 * 3600)
+    time = s % (24 * 3600)
+    hour = s // 3600
+    s %= 3600
+    minutes = s // 60
+    s %= 60
+    seconds = s
+    duree = ""
+    if (day > 0) :
+        duree = day, "jours", hour, "heures", minutes, "minutes", seconds, "secondes"
+    else :
+        if (hour > 0) :
+            duree = hour, "heures", minutes, "minutes", seconds, "secondes"
+        else :
+            if (minutes > 0):
+                duree = minutes, "minutes", seconds, "secondes"
+            else :
+                duree = seconds, "secondes"
+    return(duree)
 
 def main():
-  search(1,6)
+  search(1,9)
 
 if __name__ == "__main__":
     main()
